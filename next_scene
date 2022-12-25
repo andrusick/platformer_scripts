@@ -1,0 +1,147 @@
+next scene
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+public class next_2 : MonoBehaviour
+{
+    
+	public void Scenes(int numberScenes)
+	{
+		SceneManager.LoadScene(numberScenes);
+	}
+
+	
+}
+
+buttonsound
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class buttonsound : MonoBehaviour
+{
+	// Start is called before the first frame update
+	public AudioSource collisionSound;
+	public AudioClip Go;
+	public AudioClip ClickGo;
+
+	public void Awake()
+	{
+		collisionSound = GetComponent<AudioSource>();
+
+	}
+
+	// Update is called once per frame
+	 public void Sound()
+    {
+		collisionSound.PlayOneShot(ClickGo);
+	}
+	 public void HoverSound()
+	{
+		collisionSound.PlayOneShot(Go);
+	}
+}
+
+camera
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class camera : MonoBehaviour
+{
+	public float Speed = 10f; // �������� ������
+	public Transform Camera; // ��� �������� ������� ������
+	public Transform Player; // ��� �������� ������� ������
+
+	private void FixedUpdate()
+	{
+		var cameraPosition = Camera.position; // ������� ������� ������
+		cameraPosition.x = Mathf.Lerp(cameraPosition.x, Player.position.x + 1, Speed); // ������ ������� �� x
+		cameraPosition.y = Mathf.Lerp(cameraPosition.y, Player.position.y + 1, Speed); // ������ ������� �� y
+
+		Camera.position = cameraPosition; // ��������� ������� ������
+	}
+}
+
+scenezonemanager
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class deathzone : MonoBehaviour
+{
+	// Start is called before the first frame update
+	void Start()
+	{
+
+	}
+
+	// Update is called once per frame
+	void FixedUpdate()
+	{
+
+	}
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Player")
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+		}
+	}
+}
+exit_game
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class exit : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public void Exit()
+    {
+        Application.Quit();
+    }
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+nextscene(invoke)
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class next : MonoBehaviour
+{
+	// Start is called before the first frame update
+	public void Scenes(int numberScenes)
+	{
+		Invoke("ScenesForInvoke", 1f);
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
+	void ScenesForInvoke()
+	{
+			SceneManager.LoadScene(0);
+	}
+	
+}
