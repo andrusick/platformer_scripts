@@ -145,3 +145,59 @@ public class next : MonoBehaviour
 	}
 	
 }
+
+Velocity_controller
+public float moveForce = 40;
+	public float jumpForce = 1000;
+	public Rigidbody2D playerRb;
+	public bool isGrounded = false;
+	public Animator anim;
+	public bool move = true;
+	
+
+	// Start is called before the first frame update
+	void Start()
+	{
+		anim = GetComponent<Animator>();
+	}
+
+	// Update is called once per frame
+	void FixedUpdate()
+	{
+		anim.SetFloat("moveX", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+
+		if (isGrounded)
+		{
+			anim.SetBool("Jumping", false);
+		}
+		else
+		{
+			anim.SetBool("Jumping", true);
+		}
+		if (move = true && isGrounded == true)
+		{
+			playerRb.velocity = new Vector2(moveForce,playerRb.velocity.y);
+
+		}
+		if (Input.GetKey(KeyCode.Space) && isGrounded == true)
+		{
+			isGrounded = false;
+			playerRb.AddForce(Vector2.up * jumpForce);
+
+		}
+		
+
+	}
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+		{
+			isGrounded = true;
+		}
+
+	}
+
+
+
+
+}
